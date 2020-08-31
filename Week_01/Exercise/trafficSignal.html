@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<!-- 视频学习前 -->
+
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -45,15 +47,122 @@
       console.log(app.children[sequence].className);
       setTimeout(() => {
         app.children[sequence].className = "";
-
-        if (sequence >= 2) {
-          sequence = 0;
-        } else {
-          sequence++;
-        }
+        sequence = sequence >= 2 ? 0 : sequence + 1;
         recursion(sequence);
       }, arr[sequence].time);
     }
     recursion(0);
+  </script>
+</html> -->
+<!-- 视频学习后 -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    span {
+      display: block;
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      border-radius: 25px;
+      border: 1px solid #000;
+    }
+    .red.right {
+      background-color: red;
+    }
+    .yellow.right {
+      background-color: yellow;
+    }
+    .green.right {
+      background-color: green;
+    }
+  </style>
+  <body>
+    <div id="app">
+      <span class="red">红</span>
+      <span class="yellow">黄</span>
+      <span class="green">绿</span>
+    </div>
+    <button id="next">next</button>
+  </body>
+  <script>
+    function red() {
+      let rights = document.getElementsByTagName("span");
+      for (let i = 0; i < 3; i++) {
+        rights[i].classList.remove("right");
+      }
+      document.getElementsByClassName("red")[0].classList.add("right");
+    }
+    function yellow() {
+      let rights = document.getElementsByTagName("span");
+      for (let i = 0; i < 3; i++) {
+        rights[i].classList.remove("right");
+      }
+      document.getElementsByClassName("yellow")[0].classList.add("right");
+    }
+    function green() {
+      let rights = document.getElementsByTagName("span");
+      for (let i = 0; i < 3; i++) {
+        rights[i].classList.remove("right");
+      }
+      document.getElementsByClassName("green")[0].classList.add("right");
+    }
+
+    function sleep(t) {
+      return new Promise((resolve, reject) => {
+        setTimeout(resolve, t);
+      });
+    }
+
+    function happen(element, eventName) {
+      return new Promise((resolve, reject) => {
+        element.addEventListener(eventName, resolve, { once: true });
+      });
+    }
+    // Promise
+
+    // function go() {
+    //   red();
+    //   sleep(1000)
+    //     .then(() => {
+    //       yellow();
+    //       return sleep(200);
+    //     })
+    //     .then(() => {
+    //       green();
+    //       return sleep(500);
+    //     })
+    //     .then(go);
+    // }
+
+    // async
+
+    // async function go() {
+    //   while (true) {
+    //     red();
+    //     await sleep(1000);
+    //     yellow();
+    //     await sleep(200);
+    //     green();
+    //     await sleep(500);
+    //   }
+    // }
+
+    async function go() {
+      while (true) {
+        red();
+        await happen(document.getElementById("next"), "click");
+        yellow();
+        await happen(document.getElementById("next"), "click");
+        green();
+        await happen(document.getElementById("next"), "click");
+      }
+    }
   </script>
 </html>
