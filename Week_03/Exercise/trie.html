@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>字典树算法</title>
+  </head>
+  <body></body>
+  <script>
+    let $ = Symbol('$')
+    class Trie {
+      constructor() {
+        // 创建干净的对象
+        this.root = Object.create(null)
+      }
+      insert(word) {
+        let node = this.root
+        for (let c of word) {
+          if (!node[c]) node[c] = Object.create(null) // 子树不存在，创建一个新的子树
+          node = node[c] // 前往下一层级
+        }
+        // 创建截止符 Symbol不可重复，
+        if (!($ in node)) node[$] = 0
+        node[$]++
+      }
+      // 遍历整个树，获取最大重复单词
+      most() {
+        let max = 0
+        let maxWord = null
+        // 递归
+        let visit = (node, word) => {
+          if (node[$] && node[$] > max) {
+            max = node[$]
+            maxWord = word
+          }
+          for (let p in node) {
+            visit(node[p], word + p)
+          }
+        }
+        visit(this.root, '')
+        console.log(maxWord, max)
+      }
+    }
+    // 生成随机单词
+    function randomWord(length) {
+      var s = ''
+      for (let i = 0; i < length; i++) {
+        s += String.fromCharCode(Math.random() * 26 + 'a'.charCodeAt(0))
+      }
+      return s
+    }
+    let trie = new Trie()
+    for (let i = 0; i < 100000; i++) {
+      trie.insert(randomWord(4))
+    }
+  </script>
+</html>
