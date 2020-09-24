@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+  function StringToNumber (string) {
+    let regex = /^(?:(?:(?:[1-9]\d*|\d)\.\d*|(?:[1-9]\d*|\d)?\.\d+|(?:[1-9]\d*|\d))(?:[e]\d+)?|0[0-7]+|0x[0-9a-f]+)$/i
+    let reg = /^(\-|\+)?\d+(\.\d+)?$/
+
+    for (const i of [regex, reg]) {
+      let match = string.match(i)
+      console.log(match)
+      if (match && match.length > 0) {
+        return + match[0]
+      }
+    }
+    return NaN
+
+  }
+  function NumberToString (number, radix = '') {
+    return number.toString(radix)
+  }
+  console.log(NumberToString(6, 2))
+
+</script>
+</html>
