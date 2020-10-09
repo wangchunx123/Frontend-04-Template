@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>KMP算法</title>
-  </head>
-  <body></body>
-  <script>
+
     function kmp(source, pattern) {
       let table = new Array(pattern.length).fill(0)
       {
@@ -46,5 +38,4 @@
         return false
       }
     }
-  </script>
-</html>
+    console.log(kmp("BBC ABCDAB ABCDABCDABDE", 'ABCDABD'))
